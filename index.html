@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123b5d">
+<title>IquiTrain Dogs</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f7fa;color:#203247}
+header{background:#123b5d;color:white;padding:24px 18px;text-align:center}
+header h1{margin:0;font-size:28px}
+header p{margin:9px 0 0;color:#f6c45b}
+main{max-width:850px;margin:28px auto;padding:0 16px}
+.hero{background:white;border-radius:18px;padding:28px 20px;text-align:center;box-shadow:0 4px 18px #102b4412}
+.hero h2{color:#123b5d;font-size:25px}
+.hero p{line-height:1.6;color:#526273}
+.actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:22px}
+button{border:0;border-radius:10px;padding:14px 19px;font-size:15px;font-weight:bold;cursor:pointer}
+.primary{background:#e87832;color:white}
+.secondary{background:#123b5d;color:white}
+section.panel{background:white;margin-top:20px;padding:22px;border-radius:16px;box-shadow:0 4px 18px #102b4412}
+h3{color:#123b5d;margin-top:0}
+input,select{width:100%;padding:13px;margin:7px 0 15px;border:1px solid #ccd5df;border-radius:8px;font-size:15px}
+.notice{background:#fff4df;padding:13px;border-radius:9px;color:#77551c;line-height:1.5}
+footer{text-align:center;padding:28px;color:#657486;font-size:13px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<header>
+<h1>🐕 IquiTrain Dogs</h1>
+<p>Educando perros, guiando familias.</p>
+</header>
+<main>
+<div class="hero">
+<h2>Una mejor convivencia comienza aquí</h2>
+<p>Educación y adiestramiento canino con enfoque positivo, evaluación conductual y acompañamiento familiar en Iquique.</p>
+<div class="actions">
+<button class="primary" onclick="showPanel('cliente')">Acceso clientes</button>
+<button class="secondary" onclick="showPanel('admin')">Administración</button>
+</div>
+</div>
+
+<section id="cliente" class="panel hidden">
+<h3>Portal de clientes</h3>
+<p>Próximamente podrás registrar tus datos y los de tu perro, solicitar evaluaciones y consultar tus reservas.</p>
+<div class="notice">Esta sección está en construcción. Todavía no recibe ni almacena solicitudes.</div>
+</section>
+
+<section id="admin" class="panel hidden">
+<h3>Panel administrativo</h3>
+<p>Área privada para gestionar tutores, perros, evaluaciones, reservas, pagos y clases grupales.</p>
+<div class="notice">El acceso administrativo se habilitará mediante autenticación segura de Supabase. Esta vista todavía no permite iniciar sesión.</div>
+</section>
+
+<section class="panel">
+<h3>Nuestros servicios</h3>
+<p>🐾 Evaluación conductual inicial</p>
+<p>🐾 Clases personalizadas</p>
+<p>🐾 Clases grupales</p>
+<p>🐾 Educación temprana y modificación de conducta</p>
+<p>🐾 Acompañamiento para tutores y sus perros</p>
+</section>
+</main>
+<footer>IquiTrain Dogs · Iquique, Chile</footer>
+<script>
+function showPanel(id){
+document.querySelectorAll('.panel.hidden').forEach(p=>p.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
