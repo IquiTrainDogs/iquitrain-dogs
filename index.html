@@ -41,8 +41,9 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
 @media(max-width:600px){.hero{padding:22px}.card{padding:16px}.brand h1{font-size:20px}}
 
 .poster{position:relative;width:100%;max-width:1170px;margin:0 auto 18px;overflow:hidden;border-radius:18px;box-shadow:0 8px 28px #092b4a25;line-height:0}
-.poster img{display:block;width:100%;height:auto}
-.hotspot{position:absolute;border:0;background:transparent;border-radius:18px;cursor:pointer;padding:0;line-height:normal}
+.poster img{display:block;width:100%;height:auto;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.hotspot{position:absolute;z-index:20;display:block;border:0!important;background:rgba(255,255,255,0.001)!important;border-radius:18px;cursor:pointer;padding:0;line-height:normal;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:rgba(255,255,255,.25)}
+.hotspot:active{background:rgba(255,255,255,.18)!important;outline:3px solid rgba(255,255,255,.8)}
 .hotspot:focus-visible{outline:4px solid #fff;box-shadow:0 0 0 7px #e87832}
 .hs-services{left:4.5%;top:43.2%;width:21.5%;height:13.3%}
 .hs-eval{left:27.5%;top:43.2%;width:21.5%;height:13.3%}
@@ -57,6 +58,8 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
  .whatsapp{display:inline-block;background:#168b55;color:#fff;text-decoration:none;font-weight:bold;padding:14px 18px;border-radius:10px}
 .whatsapp:hover{background:#117346}
 @media(max-width:600px){.poster{border-radius:10px}.hotspot{border-radius:9px}}
+.poster{isolation:isolate}.poster .hotspot{z-index:30}
+
 </style>
 </head>
 <body>
