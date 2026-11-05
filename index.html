@@ -60,7 +60,7 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
 @media(max-width:600px){.poster{border-radius:10px}.hotspot{border-radius:9px}}
 .poster{isolation:isolate}.poster .hotspot{z-index:30}
 
-</style>
+.services-showcase{background:linear-gradient(145deg,#0c3458,#155b89);padding:24px;border-radius:22px;color:#fff;box-shadow:0 14px 35px #123b5d30;scroll-margin-top:20px}.services-heading{display:flex;gap:15px;align-items:center;margin-bottom:22px}.services-heading .paw{font-size:42px;color:#ffd21c}.services-heading h2{font-size:clamp(27px,5vw,38px);margin:2px 0 6px}.services-heading p{margin:0;color:#e2eff9}.services-heading .eyebrow{font-size:11px;letter-spacing:2px;color:#ffd21c;font-weight:800}.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.service-card{background:#fff;color:#203247;border-radius:18px;overflow:hidden;box-shadow:0 8px 20px #001b3540;display:flex;flex-direction:column}.service-card>img{width:100%;height:190px;object-fit:cover}.service-copy{padding:18px;display:flex;flex-direction:column;align-items:flex-start;flex:1}.service-tag{font-size:10px;font-weight:800;letter-spacing:1.1px;color:#c85b18;background:#fff0e5;padding:6px 9px;border-radius:30px}.service-copy h3{font-size:22px;color:#123b5d;margin:12px 0 8px}.service-copy p{line-height:1.5;margin:0 0 10px}.service-copy ul{padding-left:20px;margin:0 0 18px;line-height:1.7}.service-cta{margin-top:auto;display:inline-block;background:#ed792d;color:#fff;border:0;border-radius:11px;padding:12px 16px;font-weight:800;text-decoration:none;cursor:pointer;font-size:14px}.service-card.compact{min-height:220px;flex-direction:row}.service-card.compact .service-icon{font-size:38px;padding:20px;background:#e6f4ff}.service-card.compact .service-copy h3{font-size:19px}.services-footer{margin-top:18px;padding:18px;background:#fff;color:#123b5d;border-radius:15px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}.services-footer span{flex:1}.services-footer .whatsapp{background:#168b55}@media(max-width:680px){.services-showcase{padding:16px}.service-grid{grid-template-columns:1fr}.service-card>img{height:175px}.service-card.compact{min-height:0}.services-footer{align-items:flex-start;flex-direction:column}}</style>
 </head>
 <body>
 <header><div class="top">
@@ -82,15 +82,16 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
  <button class="hotspot hs-admin" aria-label="Panel administrativo" onclick="showAuth('login','admin')"></button>
 </section>
 <div id="home">
- <section id="services" class="card">
- <h3>Servicios y planes IquiTrain Dogs</h3>
- <p>🐾 Evaluación conductual inicial</p>
- <p id="publicHome">🐾 Clases personalizadas a domicilio</p>
- <p id="publicGroups">🐾 Clases grupales en Parque Playa Brava</p>
- <p>🐾 Educación temprana y modificación de conducta</p>
- <p>🐾 Planes de acompañamiento y trabajo personalizado</p>
- <p class="muted">Cada perro tiene necesidades diferentes. Te orientamos sobre la modalidad y el plan más adecuado después de conocer tu caso.</p>
- <div class="actions"><a class="whatsapp" href="https://wa.me/56934532343?text=Hola%2C%20quiero%20conocer%20los%20servicios%20y%20planes%20de%20IquiTrain%20Dogs." target="_blank" rel="noopener">Consultar planes por WhatsApp</a></div>
+ <section id="services" class="services-showcase">
+  <div class="services-heading"><span class="paw">🐾</span><div><p class="eyebrow">IQUITRAIN DOGS · IQUIQUE</p><h2>Nuestros servicios</h2><p>Educación canina en positivo para una mejor convivencia familiar.</p></div></div>
+  <div class="service-grid">
+   <article class="service-card"><img src="https://images.unsplash.com/photo-1552053831-71594a27632d?w=1000&auto=format&fit=crop" alt="Perro durante una sesión de entrenamiento"><div class="service-copy"><span class="service-tag">A TU MEDIDA</span><h3>Clases personalizadas</h3><p>Trabajo individual según la edad, conducta y necesidades de tu perro. En tu domicilio o lugar acordado.</p><ul><li>Obediencia y autocontrol</li><li>Caminata sin tirones</li><li>Hábitos y modificación de conducta</li></ul><a class="service-cta" href="https://wa.me/56934532343?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20clases%20personalizadas%20de%20IquiTrain%20Dogs" target="_blank" rel="noopener">Consultar clases personalizadas</a></div></article>
+   <article class="service-card"><img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1000&auto=format&fit=crop" alt="Perros compartiendo una actividad grupal"><div class="service-copy"><span class="service-tag">SOCIALIZACIÓN CONTROLADA</span><h3>Clases grupales</h3><p>Aprendizaje junto a otros perros, con ejercicios guiados y un entorno supervisado.</p><ul><li>Obediencia básica</li><li>Socialización controlada</li><li>Autocontrol y buenos hábitos</li></ul><button class="service-cta" type="button" onclick="openGroupClasses()">Ver próximas clases</button></div></article>
+   <article class="service-card compact"><div class="service-icon">🐾</div><div class="service-copy"><span class="service-tag">PRIMER PASO</span><h3>Evaluación conductual inicial</h3><p>Conocemos a tu perro, identificamos necesidades y orientamos un plan de trabajo.</p><button class="service-cta" type="button" onclick="openPortalTarget('evaluationCard')">Solicitar evaluación</button></div></article>
+   <article class="service-card compact"><div class="service-icon">🐶</div><div class="service-copy"><span class="service-tag">DESARROLLO Y CRIANZA</span><h3>Educación temprana</h3><p>Orientación para cachorros: hábitos, socialización y acompañamiento en sus primeras etapas.</p><a class="service-cta" href="https://wa.me/56934532343?text=Hola%2C%20quiero%20orientaci%C3%B3n%20para%20la%20educaci%C3%B3n%20de%20mi%20cachorro" target="_blank" rel="noopener">Consultar por mi cachorro</a></div></article>
+   <article class="service-card compact"><div class="service-icon">🧠</div><div class="service-copy"><span class="service-tag">BIENESTAR</span><h3>Orientación conductual</h3><p>Apoyo en reactividad, miedos, ansiedad y dificultades de convivencia. Cada caso se evalúa individualmente.</p><a class="service-cta" href="https://wa.me/56934532343?text=Hola%2C%20necesito%20orientaci%C3%B3n%20por%20una%20conducta%20de%20mi%20perro" target="_blank" rel="noopener">Cuéntanos tu caso</a></div></article>
+  </div>
+  <div class="services-footer"><strong>¿No sabes qué servicio necesita tu perro?</strong><span>Cuéntanos tu caso y te orientamos sin compromiso.</span><a class="whatsapp" href="https://wa.me/56934532343?text=Hola%2C%20quiero%20orientaci%C3%B3n%20sobre%20los%20servicios%20de%20IquiTrain%20Dogs" target="_blank" rel="noopener">Hablar por WhatsApp</a></div>
  </section>
  <section class="card"><h3>¿Quieres reservar o llevar el seguimiento de tu perro?</h3><p class="muted">Crea tu cuenta de tutor o ingresa si ya estás registrado. El acceso privado es necesario para registrar perros, solicitar evaluaciones y consultar tus reservas.</p><div class="actions"><button class="primary" onclick="showAuth('signup')">Crear cuenta de tutor</button><button class="secondary" onclick="showAuth('login')">Ya tengo cuenta · Ingresar</button></div></section>
 </div>
@@ -165,7 +166,7 @@ function goAddDogFromGroups(){returnToGroupsAfterDog=true;$('groupClassesCard').
 function backToClientPortal(){$('groupClassesCard').classList.add('hidden');$('client').scrollIntoView({behavior:'smooth',block:'start'});}
 function showOnly(id){['home','auth','client','admin'].forEach(x=>$(x).classList.toggle('hidden',x!==id));}
 function goHome(){showOnly('home');window.scrollTo({top:0,behavior:'smooth'});}
-function showServices(){$('services').classList.remove('hidden');$('services').scrollIntoView({behavior:'smooth',block:'start'});}
+function showServices(){$('home').classList.remove('hidden');$('services').classList.remove('hidden');$('services').scrollIntoView({behavior:'smooth',block:'start'});$('services').style.outline='3px solid #ffd21c';setTimeout(()=>$('services').style.outline='',1600);}
 let pendingPortalTarget=null,authPurpose='client';
 function openPortalTarget(target){pendingPortalTarget=target;showAuth('login','client');}
 function showServicesAndWhatsApp(kind){showServices();const target=kind==='grupales'?'publicGroups':'publicHome';setTimeout(()=>$(target)?.scrollIntoView({behavior:'smooth',block:'center'}),150);}
