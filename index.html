@@ -78,8 +78,8 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
  <button class="hotspot hs-assess" aria-label="Mis evaluaciones" onclick="openPortalTarget('clientEvaluations')"></button>
  <button class="hotspot hs-bookings" aria-label="Mis reservas" onclick="openPortalTarget('reservationsCard')"></button>
  <button class="hotspot hs-profile" aria-label="Mi perfil" onclick="openPortalTarget('profileCard')"></button>
- <button class="hotspot hs-client" aria-label="Acceso clientes tutores" onclick="showAuth('login')"></button>
- <button class="hotspot hs-admin" aria-label="Panel administrativo" onclick="showAuth('login')"></button>
+ <button class="hotspot hs-client" aria-label="Acceso clientes tutores" onclick="showAuth('login','client')"></button>
+ <button class="hotspot hs-admin" aria-label="Panel administrativo" onclick="showAuth('login','admin')"></button>
 </section>
 <div id="home">
  <section id="services" class="card">
@@ -149,15 +149,15 @@ const $=id=>document.getElementById(id);
 function msg(where,text,type='success'){ $(where).innerHTML=`<div class="${type}">${escapeHtml(text)}</div>`; }
 function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function showOnly(id){['home','auth','client','admin'].forEach(x=>$(x).classList.toggle('hidden',x!==id));}
-function goHome(){showOnly('home');}
+function goHome(){showOnly('home');window.scrollTo({top:0,behavior:'smooth'});}
 function showServices(){$('services').classList.remove('hidden');$('services').scrollIntoView({behavior:'smooth',block:'start'});}
-let pendingPortalTarget=null;
-function openPortalTarget(target){pendingPortalTarget=target;showAuth('login');}
+let pendingPortalTarget=null,authPurpose='client';
+function openPortalTarget(target){pendingPortalTarget=target;showAuth('login','client');}
 function showServicesAndWhatsApp(kind){showServices();const target=kind==='grupales'?'publicGroups':'publicHome';setTimeout(()=>$(target)?.scrollIntoView({behavior:'smooth',block:'center'}),150);}
 function scrollToPortalTarget(){if(!pendingPortalTarget)return;const target=pendingPortalTarget;pendingPortalTarget=null;const el=$(target);if(el){el.scrollIntoView({behavior:'smooth',block:'start'});el.style.outline='3px solid #f6c45b';setTimeout(()=>el.style.outline='',1800);}}
-function showAuth(mode='login'){authMode=mode;showOnly('auth');setAuthMode();$('authMessage').innerHTML='';}
-function toggleAuthMode(){authMode=authMode==='login'?'signup':'login';setAuthMode();}
-function setAuthMode(){$('authTitle').textContent=authMode==='login'?'Ingresar a mi cuenta':'Crear cuenta de tutor';$('signupFields').classList.toggle('hidden',authMode!=='signup');$('authSubmit').textContent=authMode==='login'?'Ingresar':'Crear cuenta';}
+function showAuth(mode='login',purpose='client'){authMode=mode;authPurpose=purpose;showOnly('auth');setAuthMode();$('authMessage').innerHTML=purpose==='admin'?'<div class="success">Acceso exclusivo para el equipo administrativo. Ingresa con la cuenta autorizada.</div>':purpose==='client'?'<div class="success">Acceso para tutores. Ingresa o crea tu cuenta para continuar.</div>':'';setTimeout(()=>$('auth').scrollIntoView({behavior:'smooth',block:'start'}),80);}
+function toggleAuthMode(){authMode=authMode==='login'?'signup':'login';authPurpose='client';setAuthMode();}
+function setAuthMode(){$('authTitle').textContent=authMode==='signup'?'Crear cuenta de tutor':authPurpose==='admin'?'Acceso administrativo':'Acceso clientes · Ingresar';$('signupFields').classList.toggle('hidden',authMode!=='signup');$('authSubmit').textContent=authMode==='login'?'Ingresar':'Crear cuenta';}
 $('authForm').addEventListener('submit',async e=>{e.preventDefault();$('authSubmit').disabled=true;try{
  const email=$('email').value.trim(),password=$('password').value;
  if(authMode==='signup'){
