@@ -106,7 +106,7 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
   </div>
   <label>Correo electrónico</label><input id="email" type="email" required autocomplete="email">
   <label>Contraseña</label><input id="password" type="password" required minlength="10" autocomplete="current-password">
-  <div class="actions"><button class="primary" id="authSubmit">Ingresar</button><button type="button" class="light" onclick="toggleAuthMode()">Crear cuenta</button><button type="button" class="light" onclick="goHome()">Volver</button></div>
+  <div class="actions"><button class="primary" id="authSubmit">Ingresar</button><button type="button" class="light" id="authToggle" onclick="toggleAuthMode()">Crear cuenta</button><button type="button" class="light" onclick="goHome()">Volver</button></div>
  </form>
  <p class="muted">La contraseña debe tener al menos 10 caracteres y cumplir los requisitos de seguridad de la cuenta.</p>
 </section>
@@ -157,7 +157,7 @@ function showServicesAndWhatsApp(kind){showServices();const target=kind==='grupa
 function scrollToPortalTarget(){if(!pendingPortalTarget)return;const target=pendingPortalTarget;pendingPortalTarget=null;const el=$(target);if(el){el.scrollIntoView({behavior:'smooth',block:'start'});el.style.outline='3px solid #f6c45b';setTimeout(()=>el.style.outline='',1800);}}
 function showAuth(mode='login',purpose='client'){authMode=mode;authPurpose=purpose;showOnly('auth');setAuthMode();$('authMessage').innerHTML=purpose==='admin'?'<div class="success">Acceso exclusivo para el equipo administrativo. Ingresa con la cuenta autorizada.</div>':purpose==='client'?'<div class="success">Acceso para tutores. Ingresa o crea tu cuenta para continuar.</div>':'';setTimeout(()=>$('auth').scrollIntoView({behavior:'smooth',block:'start'}),80);}
 function toggleAuthMode(){authMode=authMode==='login'?'signup':'login';authPurpose='client';setAuthMode();}
-function setAuthMode(){$('authTitle').textContent=authMode==='signup'?'Crear cuenta de tutor':authPurpose==='admin'?'Acceso administrativo':'Acceso clientes · Ingresar';$('signupFields').classList.toggle('hidden',authMode!=='signup');$('authSubmit').textContent=authMode==='login'?'Ingresar':'Crear cuenta';}
+function setAuthMode(){$('authTitle').textContent=authMode==='signup'?'Crear cuenta de tutor':authPurpose==='admin'?'Acceso administrativo':'Acceso clientes · Ingresar';$('signupFields').classList.toggle('hidden',authMode!=='signup');$('authSubmit').textContent=authMode==='login'?'Ingresar':'Crear cuenta';$('authToggle').textContent=authMode==='login'?'Crear cuenta':'Ya tengo cuenta · Ingresar';}
 $('authForm').addEventListener('submit',async e=>{e.preventDefault();$('authSubmit').disabled=true;try{
  const email=$('email').value.trim(),password=$('password').value;
  if(authMode==='signup'){
@@ -166,7 +166,7 @@ $('authForm').addEventListener('submit',async e=>{e.preventDefault();$('authSubm
   if(data.session){currentUser=data.user;await db.from('profiles').update({full_name:$('fullName').value.trim(),phone:$('phone').value.trim(),address:$('address').value.trim()}).eq('id',currentUser.id);await routeUser();}
   else msg('authMessage','Cuenta creada. Revisa tu correo para confirmar la dirección y luego ingresa.','success');
  }else{const {data,error}=await db.auth.signInWithPassword({email,password});if(error)throw error;currentUser=data.user;await routeUser();}
- }catch(err){msg('authMessage',err.message||'No fue posible completar el acceso.','error');}finally{$('authSubmit').disabled=false;}});
+ }catch(err){const em=err.message||'No fue posible completar el acceso.';const wait=em.match(/only request this after (\\d+) seconds/i);msg('authMessage',wait?`Por seguridad, espera ${wait[1]} segundos antes de volver a intentar. No pulses varias veces.`:em,'error');}finally{$('authSubmit').disabled=false;}});
 async function routeUser(){const {data,error}=await db.from('profiles').select('*').eq('id',currentUser.id).single();if(error)throw error;currentProfile=data;$('sessionArea').innerHTML=`<span style="color:white;font-size:13px">${escapeHtml(data.full_name||currentUser.email)}</span>`;
  if(data.role==='admin'){showOnly('admin');await loadAdmin();}else{showOnly('client');await loadClient();}scrollToPortalTarget();}
 async function signOut(){await db.auth.signOut();currentUser=null;currentProfile=null;$('sessionArea').innerHTML='<button class="light" onclick="showAuth()">Ingresar</button>';goHome();}
