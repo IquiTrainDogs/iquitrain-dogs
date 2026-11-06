@@ -206,7 +206,7 @@ function openServiceDetail(key){
  $('serviceDetailAction').onclick=item.run;
  $('services').classList.add('hidden');$('serviceDetail').classList.remove('hidden');$('serviceDetail').scrollIntoView({behavior:'smooth',block:'start'});
 }
-function backToServices(){$('serviceDetail').classList.add('hidden');$('services').classList.remove('hidden');$('services').scrollIntoView({behavior:'smooth',block:'start');}
+function backToServices(){$('serviceDetail').classList.add('hidden');$('services').classList.remove('hidden');$('services').scrollIntoView({behavior:'smooth',block:'start'});}
 function loginForDogRegistration(){pendingPortalTarget='dogCard';showAuth('login','client');}
 
 function goHome(){$('dogRegistrationEntry').classList.add('hidden');showOnly('home');window.scrollTo({top:0,behavior:'smooth'});}
