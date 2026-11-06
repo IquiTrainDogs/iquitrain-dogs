@@ -85,7 +85,7 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
  <button class="hotspot hs-eval" aria-label="Reservar evaluación" onclick="openPortalTarget('evaluationCard')"></button>
  <button class="hotspot hs-groups" aria-label="Clases grupales" onclick="openGroupClasses()"></button>
  <button class="hotspot hs-home" aria-label="Clases a domicilio" onclick="showServicesAndWhatsApp('domicilio')"></button>
- <button class="hotspot hs-dog" aria-label="Registro de mi perro" onclick="openPortalTarget('dogCard')"></button>
+ <button class="hotspot hs-dog" aria-label="Registro de mi perro" onclick="openDogRegistration()"></button>
  <button class="hotspot hs-assess" aria-label="Mis evaluaciones" onclick="openPortalTarget('clientEvaluations')"></button>
  <button class="hotspot hs-bookings" aria-label="Mis reservas" onclick="openPortalTarget('reservationsCard')"></button>
  <button class="hotspot hs-profile" aria-label="Mi perfil" onclick="openPortalTarget('profileCard')"></button>
@@ -106,6 +106,15 @@ footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
  </section>
  <section class="card"><h3>¿Quieres reservar o llevar el seguimiento de tu perro?</h3><p class="muted">Crea tu cuenta de tutor o ingresa si ya estás registrado. El acceso privado es necesario para registrar perros, solicitar evaluaciones y consultar tus reservas.</p><div class="actions"><button class="primary" onclick="showAuth('signup')">Crear cuenta de tutor</button><button class="secondary" onclick="showAuth('login')">Ya tengo cuenta · Ingresar</button></div></section>
 </div>
+
+<section id="dogRegistrationEntry" class="card hidden" style="border:2px solid #f4b52b;scroll-margin-top:18px">
+ <h2>🐶 Registro de mi perro</h2>
+ <p>Registra a tu regalón una sola vez. Guardaremos sus datos en tu cuenta para futuras evaluaciones, clases y reservas.</p>
+ <div class="actions"><button class="primary" type="button" onclick="beginDogRegistration()">Registrar mi perro</button><button class="secondary" type="button" onclick="beginDogRegistration()">Ya tengo cuenta · Ingresar</button></div>
+ <h3>¿Qué puedes hacer después de registrarlo?</h3>
+ <div class="actions"><button class="secondary" type="button" onclick="requestPersonalized()">🐾 Consultar clases personalizadas</button><button class="secondary" type="button" onclick="openPortalTarget('evaluationCard')">📅 Agendar evaluación inicial</button></div>
+ <p class="muted">Para guardar el registro necesitas un correo electrónico y una contraseña. Si ya tienes cuenta, recuperarás los perros y datos guardados. Las clases se coordinan después de la evaluación conductual inicial.</p>
+ </section>
 
 <section id="auth" class="card hidden">
  <h2 id="authTitle">Ingresar</h2>
@@ -176,7 +185,10 @@ async function loadAvailableGroupSessions(){const box=$('groupSessionsList');try
 function goAddDogFromGroups(){returnToGroupsAfterDog=true;$('groupClassesCard').classList.add('hidden');$('dogCard').scrollIntoView({behavior:'smooth',block:'start'});$('dogName').focus();}
 function backToClientPortal(){$('groupClassesCard').classList.add('hidden');$('client').scrollIntoView({behavior:'smooth',block:'start'});}
 function showOnly(id){['home','auth','client','admin'].forEach(x=>$(x).classList.toggle('hidden',x!==id));}
-function goHome(){showOnly('home');window.scrollTo({top:0,behavior:'smooth'});}
+function openDogRegistration(){if(currentUser){showOnly('client');loadClient().then(()=>{const e=$('dogCard');e.scrollIntoView({behavior:'smooth',block:'start'});});return;}$('home').classList.remove('hidden');$('dogRegistrationEntry').classList.remove('hidden');$('dogRegistrationEntry').scrollIntoView({behavior:'smooth',block:'start'});}
+function beginDogRegistration(){pendingPortalTarget='dogCard';showAuth('signup','client');$('authMessage').innerHTML='<div class="success">Crea tu cuenta con correo y contraseña para guardar los datos de tu perro. Si ya tienes cuenta, selecciona «Ya tengo cuenta · Ingresar».</div>';}
+function requestPersonalized(){window.open('https://wa.me/56934532343?text='+encodeURIComponent('Hola IquiTrain Dogs, quiero información para agendar clases personalizadas para mi perro.'),'_blank','noopener');}
+function goHome(){$('dogRegistrationEntry').classList.add('hidden');showOnly('home');window.scrollTo({top:0,behavior:'smooth'});}
 function showServices(){$('home').classList.remove('hidden');$('services').classList.remove('hidden');$('services').scrollIntoView({behavior:'smooth',block:'start'});$('services').style.outline='3px solid #ffd21c';setTimeout(()=>$('services').style.outline='',1600);}
 let pendingPortalTarget=null,authPurpose='client';
 function openPortalTarget(target){pendingPortalTarget=target;showAuth('login','client');}
