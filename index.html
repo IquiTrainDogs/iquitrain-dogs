@@ -214,7 +214,7 @@ function openServiceDetail(key){
 function backToServices(){$('serviceDetail').classList.add('hidden');$('home').querySelector('.service-account-entry')?.classList.remove('hidden');$('services').classList.remove('hidden');$('services').scrollIntoView({behavior:'smooth',block:'start'});}
 function loginForDogRegistration(){pendingPortalTarget='dogCard';showAuth('login','client');}
 
-function goHome(){showOnly('poster');$('home').classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
+function goHome(){showOnly('home');$('poster').classList.remove('hidden');$('serviceDetail').classList.add('hidden');$('services').classList.remove('hidden');$('home').querySelector('.service-account-entry')?.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});}
 function showServices(){showOnly('home');$('home').classList.remove('hidden');$('serviceDetail').classList.add('hidden');$('services').classList.remove('hidden');$('services').scrollIntoView({behavior:'smooth',block:'start'});$('services').style.outline='3px solid #ffd21c';setTimeout(()=>$('services').style.outline='',1600);}
 let pendingPortalTarget=null,authPurpose='client';
 function openPortalTarget(target){pendingPortalTarget=target; if(currentUser){showOnly('client');loadClient().then(()=>{pendingPortalTarget=target;scrollToPortalTarget();});}else showAuth('login','client');}
